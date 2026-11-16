@@ -13,6 +13,7 @@ Web estàtica (HTML, CSS i JavaScript, sense servidor ni dades personals) feta p
 | Sobre la distonia | `informacio.html` | Què és, tipus, símptomes, causes, diagnòstic, tractaments, emocions i fonts |
 | Família i entorn | `entorn.html` | Consells per acompanyar i una targeta imprimible per explicar la distonia |
 | Visita al metge | `visita.html` | Resum del registre i preguntes per al neuròleg, imprimible o en PDF |
+| Qui sóc | `autor.html` | Presentació de l'autor, motiu del treball i correu de contacte |
 | Recursos | `recursos.html` | Associació Distonia Catalunya, fonts mèdiques i telèfons d'ajuda (112, 024, 061) |
 
 Fitxers de suport:

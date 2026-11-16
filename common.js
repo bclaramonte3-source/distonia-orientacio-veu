@@ -24,7 +24,8 @@ window.Veu = window.Veu || {
     ["informacio.html", "Sobre la distonia"],
     ["entorn.html", "Família i entorn"],
     ["visita.html", "Visita al metge"],
-    ["recursos.html", "Recursos"]
+    ["recursos.html", "Recursos"],
+    ["autor.html", "Qui sóc"]
   ];
   var CLAU_MIDA = "distonia_lletra_gran";
 

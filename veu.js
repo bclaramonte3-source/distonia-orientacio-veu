@@ -264,6 +264,17 @@ var Veu = (function () {
       e === "no-suportat" || e === "language-not-supported" || e === "network" || e === "aborted";
   }
 
+  function netejaText(t) { return t.replace(/[↗←→·]/g, " ").replace(/\s+/g, " ").trim(); }
+  function ambPunt(t) { return /[.!?:]$/.test(t) ? t : t + "."; }
+
+  // Text d'un element sense les parts que no s'han de llegir (marcades amb class="no-llegir")
+  function textDe(el) {
+    var c = el.cloneNode(true);
+    var fora = c.querySelectorAll(".no-llegir, .barra-veu, script, style");
+    for (var i = 0; i < fora.length; i++) fora[i].remove();
+    return netejaText(c.textContent);
+  }
+
   // Textos visibles d'una zona de la pàgina, per llegir-los
   function textosLlegibles(arrel) {
     var out = [];
@@ -271,7 +282,7 @@ var Veu = (function () {
       if (el.closest(".barra-veu")) return;
       if (el.getClientRects().length === 0) return;                       // amagat o dins un desplegable tancat
       if (el.querySelector("p,li,h1,h2,h3,td,th")) return;                // contenidor: es llegeixen els fills
-      var t = el.textContent.replace(/[↗←→·]/g, " ").replace(/\s+/g, " ").trim();
+      var t = textDe(el);
       if (t) out.push(t);
     });
     return out;
@@ -301,6 +312,67 @@ var Veu = (function () {
     main.insertBefore(d, main.firstChild);
   }
 
+  // ---------- Lectura per apartats ----------
+  var botonsApartat = [];
+  var apartatsEscoltant = false;
+
+  function reiniciaApartats() {
+    botonsApartat.forEach(function (b) {
+      b.textContent = "Escoltar";
+      b.setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-label", "Escoltar l'apartat: " + b.dataset.titol);
+    });
+  }
+
+  // Títol + contingut d'un apartat (també si està tancat). Les taules es llegeixen fila a fila.
+  function textosApartat(d) {
+    var out = [ambPunt(textDe(d.querySelector("summary")))];
+    d.querySelectorAll(".cos h3, .cos p, .cos li, .cos tbody tr").forEach(function (el) {
+      if (el.tagName === "TR") {
+        var cel = [].map.call(el.children, function (c) { return ambPunt(textDe(c)); });
+        out.push(cel.join(" "));
+      } else if (!el.closest("tr")) {
+        var t = textDe(el);
+        if (t) out.push(t);
+      }
+    });
+    return out;
+  }
+
+  // A cada apartat desplegable (details.acordio) dins de `arrel` hi afegeix un botó «Escoltar»
+  // que llegeix el títol i tot el contingut, també si l'apartat està tancat.
+  function activaApartats(arrel) {
+    if (!synth || !arrel) return;
+    if (!apartatsEscoltant) {
+      apartatsEscoltant = true;
+      alCanviar(function (llegint) { if (!llegint) reiniciaApartats(); });
+    }
+    arrel.querySelectorAll("details.acordio").forEach(function (d) {
+      if (d.parentNode.classList.contains("apartat")) return;
+      var titol = textDe(d.querySelector("summary"));
+      var w = document.createElement("div");
+      w.className = "apartat";
+      d.parentNode.insertBefore(w, d);
+      w.appendChild(d);
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn-apartat no-print";
+      b.dataset.titol = titol;
+      w.appendChild(b);
+      botonsApartat.push(b);
+      b.addEventListener("click", function () {
+        if (b.getAttribute("aria-pressed") === "true") { atura(); return; }
+        reiniciaApartats();
+        d.open = true;                       // s'obre per poder seguir el text amb els ulls
+        b.textContent = "Aturar";
+        b.setAttribute("aria-pressed", "true");
+        b.setAttribute("aria-label", "Aturar la lectura de l'apartat: " + titol);
+        llegeixLlista(textosApartat(d));
+      });
+    });
+    reiniciaApartats();
+  }
+
   // Tecla Escape per aturar la lectura, i parar-la en sortir de la pàgina
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && document.body.hasAttribute("data-llegir")) atura();
@@ -311,6 +383,7 @@ var Veu = (function () {
 
   return {
     alCanviar: alCanviar,
+    activaApartats: activaApartats,
     suportaLlegir: !!synth,
     suportaParlar: !!SR,
     parla: parla,

@@ -9,6 +9,7 @@ Web estàtica (HTML, CSS i JavaScript, sense servidor ni dades personals) feta p
 | Inici | `index.html` | Portada amb accés a totes les seccions |
 | Com et trobes? | `orientacio.html` | Qüestionari ramificat (33 preguntes, 13 finals) que dona una orientació |
 | Registre diari | `registre.html` | Apuntar ànim, símptomes, dolor, cansament, estrès, son, zones afectades i notes; gràfic dels últims 30 dies; exportació a CSV |
+| Exercicis i trucs | `fisioterapia.html` | Què fer quan apareix la distonia, trucs sensitius per zona, idees d'exercicis de fisioteràpia, respiració guiada, hàbits i la llista personal «Els meus trucs» (que també surt a Visita al metge) |
 | Sobre la distonia | `informacio.html` | Què és, tipus, símptomes, causes, diagnòstic, tractaments, emocions i fonts |
 | Família i entorn | `entorn.html` | Consells per acompanyar i una targeta imprimible per explicar la distonia |
 | Visita al metge | `visita.html` | Resum del registre i preguntes per al neuròleg, imprimible o en PDF |
@@ -26,7 +27,7 @@ Fitxers de suport:
 
 ## Veu
 
-- **Llegir en veu alta:** botó «Llegir la pàgina en veu alta» a Inici, Sobre la distonia, Família i entorn i Recursos; «Escoltar la pregunta» al qüestionari. A **Sobre la distonia**, cada apartat té a més el seu botó **«Escoltar»**, que llegeix el títol i tot el contingut encara que l'apartat estigui tancat. Mentre s'està llegint apareix a baix un botó gran **«Aturar la lectura»** (també atura la tecla Escape). Ho fa el propi dispositiu i no s'envia res enlloc. Si el dispositiu no té veu en català, el navegador n'usarà una altra i la pronunciació pot ser pitjor.
+- **Llegir en veu alta:** botó «Llegir la pàgina en veu alta» a Inici, Sobre la distonia, Família i entorn i Recursos; «Escoltar la pregunta» al qüestionari. A **Sobre la distonia** i **Exercicis i trucs**, cada apartat desplegable té a més el seu botó **«Escoltar»**, que llegeix el títol i tot el contingut encara que l'apartat estigui tancat (és la funció `Veu.activaApartats`). Mentre s'està llegint apareix a baix un botó gran **«Aturar la lectura»** (també atura la tecla Escape). Ho fa el propi dispositiu i no s'envia res enlloc. Si el dispositiu no té veu en català, el navegador n'usarà una altra i la pronunciació pot ser pitjor.
 - **Respondre parlant:** al qüestionari («Respondre parlant», o el mode automàtic de la pantalla d'inici) i al registre diari («Omplir les escales per veu», «Dictar la nota»). Abans d'entendre una opció, la web la repeteix i demana confirmació.
 - **Privadesa:** per entendre la veu, el navegador envia l'àudio al seu servei de reconeixement (normalment Google o Microsoft). Aquesta web no el rep ni el guarda, i avisa abans del primer ús. Funciona sobretot a Chrome i Edge; a Firefox només es pot llegir en veu alta.
 - **Limitacions:** si la persona té distonia a la veu, la mandíbula o la llengua, el reconeixement pot fallar. Per això la veu és sempre opcional i tot es pot fer amb els botons.
@@ -56,7 +57,7 @@ A1: { t: "Com estàs avui?", o: [
 
 ## Sobre les dades
 
-La web no té servidor. Tot el que s'apunta (qüestionari i registre diari) es guarda **només al navegador de cada persona** i es pot descarregar com a CSV. Per tant, **tu no reps les dades dels altres usuaris**. Si vols recollir dades de diverses persones per a l'anàlisi del TDR, demana'ls el CSV o afegeix un enllaç a un formulari, i avisa'ls sempre del que recolliràs.
+La web no té servidor. Tot el que s'apunta (qüestionari, registre diari i «Els meus trucs») es guarda **només al navegador de cada persona** i es pot descarregar com a CSV. Per tant, **tu no reps les dades dels altres usuaris**. Si vols recollir dades de diverses persones per a l'anàlisi del TDR, demana'ls el CSV o afegeix un enllaç a un formulari, i avisa'ls sempre del que recolliràs.
 
 ## Avís
 

@@ -2,11 +2,25 @@
 //  COMÚ A TOTES LES PÀGINES: menú, peu i botó de lletra gran
 //  Per afegir o treure una pàgina del menú, edita la llista PAGINES.
 // ============================================================
+// Si veu.js no es carrega (per exemple, perquè no s'ha pujat al repositori), la web continua
+// funcionant sense veu: aquest objecte buit evita que les pàgines donin error.
+window.Veu = window.Veu || {
+  suportaLlegir: false, suportaParlar: false,
+  atura: function () {}, paraEscolta: function () {}, alCanviar: function () {}, activaApartats: function () {},
+  llegeixLlista: function () { return Promise.resolve(); },
+  parla: function () { return Promise.resolve(); },
+  escolta: function () { return Promise.reject({ error: "no-suportat" }); },
+  consentiment: function () { return false; }, missatgeError: function () { return ""; },
+  errorFatal: function () { return true; }, trobaOpcio: function () { return null; },
+  esSiNo: function () { return null; }
+};
+
 (function () {
   var PAGINES = [
     ["index.html", "Inici"],
     ["orientacio.html", "Com et trobes?"],
     ["registre.html", "Registre diari"],
+    ["fisioterapia.html", "Exercicis i trucs"],
     ["informacio.html", "Sobre la distonia"],
     ["entorn.html", "Família i entorn"],
     ["visita.html", "Visita al metge"],

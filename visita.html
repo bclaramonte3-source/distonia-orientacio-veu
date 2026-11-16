@@ -29,6 +29,12 @@
       <div id="resum"></div>
     </section>
 
+    <section class="card" id="card-trucs" hidden>
+      <h2>Trucs que em funcionen</h2>
+      <ul id="llista-trucs"></ul>
+      <p class="muted no-print">Els pots canviar a <a href="fisioterapia.html#meus">Exercicis i trucs</a>.</p>
+    </section>
+
     <section class="card">
       <h2>Per comentar a la visita</h2>
       <label class="camp">Medicació i tractaments actuals
@@ -71,6 +77,8 @@
       "Els símptomes han canviat des de l'última visita? Pot ser que hagin millorat o empitjorat?",
       "Quant m'ha durat l'efecte de l'últim tractament (per exemple, la toxina botulínica, si en rebo)?",
       "Hi ha opcions de tractament que encara no hem provat (medicació, fisioteràpia, altres)?",
+      "Em pots derivar a un fisioterapeuta o terapeuta ocupacional amb experiència en distonia? Quins exercicis em convenen i quins he d'evitar?",
+      "Els trucs que em funcionen són adequats, o em recomanes altres estratègies?",
       "Els efectes secundaris que noto són normals?",
       "Quins senyals indiquen que he de consultar abans de la propera visita?",
       "Em convé suport psicològic o emocional?",
@@ -145,6 +153,19 @@
         cont.appendChild(un);
       }
     }
+
+    function pintaTrucs() {
+      var d = null;
+      try { d = JSON.parse(localStorage.getItem("distonia_trucs_v1")); } catch (e) { /* res */ }
+      var llista = [];
+      if (d && Array.isArray(d.marcats)) d.marcats.forEach(function (m) { llista.push(m.z + ": " + m.t); });
+      if (d && Array.isArray(d.propis)) d.propis.forEach(function (p) { llista.push("El meu truc: " + p.t); });
+      var ul = $("llista-trucs");
+      ul.replaceChildren();
+      llista.forEach(function (t) { ul.appendChild(el("li", null, t)); });
+      $("card-trucs").hidden = !llista.length;
+    }
+    pintaTrucs();
 
     $("periode").addEventListener("change", pintaResum);
     $("imprimeix").addEventListener("click", function () { window.print(); });

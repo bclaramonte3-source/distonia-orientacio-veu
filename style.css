@@ -97,6 +97,35 @@ main { width: 100%; max-width: 820px; margin: 0 auto; padding: 24px 16px 32px; f
   min-height: 58px; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
 }
 body.llegint { padding-bottom: 90px; }
+
+/* ---------- Pàgina d'exercicis i trucs ---------- */
+.salts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+.salts li { margin: 0; }
+.salts a {
+  display: block; padding: 9px 14px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--card);
+  color: var(--accent); text-decoration: none; font-weight: 500; font-size: .92rem; min-height: 44px;
+}
+.salts a:hover, .salts a:focus-visible { border-color: var(--accent); background: var(--accent-soft); outline: none; }
+ol.passos { padding-left: 0; list-style: none; counter-reset: pas; margin: 12px 0; }
+ol.passos li { counter-increment: pas; position: relative; padding: 4px 0 4px 46px; margin-bottom: 14px; }
+ol.passos li::before {
+  content: counter(pas); position: absolute; left: 0; top: 2px; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent); font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+ul.trucs { list-style: none; padding: 0; margin: 0 0 14px; }
+.truc { padding: 12px 0; border-bottom: 1px solid var(--border); margin: 0; }
+.truc:last-child { border-bottom: none; }
+.truc .chip { display: block; width: max-content; max-width: 100%; margin-top: 10px; }
+.truc-zona { color: var(--muted); font-weight: 600; }
+.meus-trucs .truc { display: flex; gap: 10px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+.meus-trucs .enllac-btn { padding: 4px 0; }
+.resp-escena { display: flex; justify-content: center; align-items: center; height: 230px; }
+.resp-cercle {
+  width: 90px; height: 90px; border-radius: 50%; background: var(--accent); opacity: .85;
+  transition-property: transform; transition-timing-function: ease-in-out; transition-duration: 4s; transform: scale(1);
+}
+.resp-cercle.gran { transform: scale(2.3); }
+.resp-text { font-size: 1.3rem; font-weight: 600; text-align: center; min-height: 2em; }
 .opcio .num { font-weight: 700; margin-right: 8px; color: var(--accent); }
 .opcio.triada { border-color: var(--accent); background: var(--accent-soft); outline: 3px solid var(--accent); }
 fieldset.veu { border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 14px; margin: 16px 0; }
@@ -197,5 +226,11 @@ details.acordio > .cos { padding: 14px 18px 4px; }
   body.print-targeta main > * { display: none !important; }
   body.print-targeta main > #zona-targeta { display: block !important; }
   body.print-targeta #zona-targeta > *:not(#targeta) { display: none !important; }
+  body.print-trucs main > * { display: none !important; }
+  body.print-trucs main > #meus { display: block !important; }
   .targeta-imprimible { border-color: #000; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resp-cercle { transition: none !important; }
 }
